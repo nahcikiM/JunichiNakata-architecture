@@ -126,4 +126,19 @@ a:hover { text-decoration: underline; }
 @media (max-width: 768px) {
     .article-list { grid-template-columns: 1fr; }
 }
+/* 画像回転クラス */
+.rotate-90 { transform: rotate(90deg); }
+.rotate-180 { transform: rotate(180deg); }
+.rotate-270 { transform: rotate(270deg); }
+.rotate-minus90 { transform: rotate(-90deg); }
+
+/* 回転時の見た目を整える */
+.rotate-90 img,
+.rotate-180 img,
+.rotate-270 img,
+.rotate-minus90 img {
+    transform-origin: center center; /* 中央を回転の基準点に */
+    display: block;
+    margin: 0 auto;
+}
 
