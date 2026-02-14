@@ -148,7 +148,7 @@ a:hover { text-decoration: underline; }
   height: 100%;
   object-fit: contain;
   position: absolute;
-  top: 15%; /* 左見切れ分を上に移動 */
+  top: 10%; /* 左見切れ分を上に移動 */
   left: 0;
 }
 
