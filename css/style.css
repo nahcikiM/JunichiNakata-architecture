@@ -130,25 +130,30 @@ a:hover { text-decoration: underline; }
 .rotated-graph-container {
   display: flex;
   flex-direction: column;
-  align-items: center;  /* 図全体を中央寄せ */
+  align-items: center;
   margin: 30px auto;
   max-width: 100%;
 }
 
 .rotated-graph-wrapper {
   position: relative;
+  /* 画面サイズに応じて自動調整、右側も見切れない大きさに */
+  width: 70vmin;  /* 画面の最小辺の70%で自動調整 */
+  height: 70vmin;
   transform: rotate(-90deg);
   transform-origin: center center;
-  /* 画面サイズに応じて自動調整、はみ出さないように制限 */
-  max-width: 80vh;
-  max-height: 80vh;
   overflow: hidden;
 }
 
 .rotated-graph-img {
   display: block;
   width: auto;
-  height: 100%;  /* 高さ基準でフィット */
+  height: 100%;
+  /* 左右どちらも見切れないよう中央配置 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .rotated-caption {
@@ -159,4 +164,10 @@ a:hover { text-decoration: underline; }
   color: #333;
   width: 100%;
 }
+
+.zoom-link {
+  display: block;
+  line-height: 0; /* リンク自体の余白をゼロに */
+}
+
 
