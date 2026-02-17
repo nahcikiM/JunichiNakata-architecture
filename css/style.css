@@ -136,23 +136,29 @@ a:hover { text-decoration: underline; }
 }
 
 .rotated-graph-wrapper {
-  /* 画像全体が入る十分なサイズ */
-  width: 90vmin;
-  height: 90vmin;
+  /* 画像が全部入るようサイズUP + padding追加 */
+  width: 100vmin;
+  height: 100vmin;
+  padding: 5vmin; /* 画像の余裕を確保 */
+  box-sizing: border-box;
   transform: rotate(-90deg);
   transform-origin: center center;
   position: relative;
-  overflow: hidden;
+  overflow: visible; /* 見切れを許容 */
 }
 
 .rotated-graph-img {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* 画像全体を表示 */
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  max-width: 90%;
+  max-height: 90%;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
 }
+
 
 .rotated-caption {
   margin-top: 15px;
@@ -166,37 +172,41 @@ a:hover { text-decoration: underline; }
 
 .zoom-link {
   display: block;
-  line-height: 0; /* リンク自体の余白をゼロに */
+  line-height: 0;
+  text-decoration: none;
 }
+
+.zoom-link:hover .rotated-graph-wrapper {
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  transform: rotate(-90deg) scale(1.02);
+}
+
 
 
 <script>
 function openRotatedModal(event) {
   event.preventDefault();
+  event.stopPropagation();
   
-  // モーダルHTML（回転済みの拡大画像）
   const modalHtml = `
-    <div id="zoom-modal" style="
+    <div id="zoom-modal" onclick="this.remove()" style="
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-      background: rgba(0,0,0,0.9); z-index: 9999; display: flex; 
+      background: rgba(0,0,0,0.95); z-index: 9999; display: flex; 
       align-items: center; justify-content: center; cursor: pointer;
+      padding: 5vmin;
     ">
       <div style="
         transform: rotate(-90deg); transform-origin: center center;
-        max-width: 90vmin; max-height: 90vmin;
+        width: 95vmin; height: 95vmin; padding: 3vmin; box-sizing: border-box;
       ">
-        <img src="https://drive.google.com/thumbnail?id=1F7laufDiu7M8V6dD7G2txrgCpP7itfbh&sz=w2000" 
-             style="width: 100%; height: auto; max-width: none;"
+        <img src="https://drive.google.com/thumbnail?id=1F7laufDiu7M8V6dD7G2txrgCpP7itfbh&sz=w2500" 
+             style="width: 100%; height: 100%; object-fit: contain; max-width: none;"
              alt="拡大図">
       </div>
     </div>
   `;
   
   document.body.insertAdjacentHTML('beforeend', modalHtml);
-  
-  // クリックで閉じる
-  document.getElementById('zoom-modal').onclick = function() {
-    this.remove();
-  };
 }
 </script>
+
