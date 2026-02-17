@@ -212,49 +212,38 @@ a:hover { text-decoration: underline; }
 
 
 <script>
-function openRotatedModal(event) {
-  event.preventDefault();
-  event.stopPropagation();
-  
-  const modalHtml = `
-    <div id="zoom-modal" onclick="this.remove()" style="
-      position: fixed; 
-      top: 0; left: 0; width: 100vw; height: 100vh; 
-      background: rgba(0,0,0,0.98); 
-      z-index: 99999; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      cursor: pointer;
-      padding: 2vmin;
-    ">
-      <div style="
-        transform: rotate(-90deg); 
-        transform-origin: center center;
-        width: 98vw; 
-        height: 98vw; 
-        max-width: 98vh; 
-        max-height: 98vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      ">
-        <img src="https://drive.google.com/thumbnail?id=1F7laufDiu7M8V6dD7G2txrgCpP7itfbh&sz=w3000" 
-             style="
-               width: 100%; 
-               height: 100%; 
-               object-fit: contain;
-               max-width: none;
-               border: 2px solid #fff;
-               box-shadow: 0 0 50px rgba(255,255,255,0.3);
-             "
-             alt="拡大図：各工事の出来高曲線">
-      </div>
-    </div>
-  `;
-  
-  document.body.insertAdjacentHTML('beforeend', modalHtml);
-}
+document.addEventListener('DOMContentLoaded', function() {
+  const zoomTriggers = document.querySelectorAll('.zoom-trigger');
+  zoomTriggers.forEach(trigger => {
+    trigger.style.cursor = 'pointer';
+    trigger.addEventListener('click', function() {
+      // HTMLのdata属性から画像URLとaltを取得
+      const imgSrc = this.querySelector('img').dataset.originalSrc || this.querySelector('img').src.replace('&sz=w1200', '&sz=w3000');
+      const imgAlt = this.querySelector('img').alt;
+      
+      const modal = document.createElement('div');
+      modal.id = 'zoom-modal';
+      modal.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.98); z-index: 99999; display: flex;
+        align-items: center; justify-content: center; cursor: pointer;
+        padding: 1vmin;
+      `;
+      modal.innerHTML = `
+        <div style="
+          transform: rotate(-90deg); transform-origin: center center;
+          width: 98vw; height: 98vw; max-width: 98vh; max-height: 98vh;
+          display: flex; align-items: center; justify-content: center;
+        ">
+          <img src="${imgSrc}"
+               style="width: 100%; height: 100%; object-fit: contain; border: 3px solid #fff; box-shadow: 0 0 60px rgba(255,255,255,0.4);"
+               alt="${imgAlt}">
+        </div>
+      `;
+      modal.onclick = () => document.body.removeChild(modal);
+      document.body.appendChild(modal);
+    });
+  });
+});
 </script>
-
 
