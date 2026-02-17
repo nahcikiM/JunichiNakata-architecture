@@ -184,12 +184,14 @@ a:hover { text-decoration: underline; }
 .zoom-trigger {
   display: block;
   line-height: 0;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
 .zoom-trigger:hover {
   transform: scale(1.02);
 }
+
 
 .zoom-trigger:hover .rotated-graph-wrapper {
   box-shadow: 0 8px 25px rgba(0,0,0,0.3);
