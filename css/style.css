@@ -185,16 +185,28 @@ a:hover { text-decoration: underline; }
   display: block;
   line-height: 0;
   cursor: pointer;
-  transition: transform 0.2s;
+  /* ホバー効果削除 */
 }
 
-.zoom-trigger:hover {
-  transform: scale(1.02);
+.rotated-graph-wrapper {
+  width: 95vmin;
+  height: 95vmin;
+  transform: rotate(-90deg);
+  transform-origin: center center;
+  position: relative;
+  overflow: visible;
 }
 
-
-.zoom-trigger:hover .rotated-graph-wrapper {
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+.rotated-graph-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  max-width: 85%;
+  max-height: 85%;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
 }
 
 
@@ -206,18 +218,37 @@ function openRotatedModal(event) {
   
   const modalHtml = `
     <div id="zoom-modal" onclick="this.remove()" style="
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-      background: rgba(0,0,0,0.95); z-index: 9999; display: flex; 
-      align-items: center; justify-content: center; cursor: pointer;
-      padding: 5vmin;
+      position: fixed; 
+      top: 0; left: 0; width: 100vw; height: 100vh; 
+      background: rgba(0,0,0,0.98); 
+      z-index: 99999; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      cursor: pointer;
+      padding: 2vmin;
     ">
       <div style="
-        transform: rotate(-90deg); transform-origin: center center;
-        width: 95vmin; height: 95vmin; padding: 3vmin; box-sizing: border-box;
+        transform: rotate(-90deg); 
+        transform-origin: center center;
+        width: 98vw; 
+        height: 98vw; 
+        max-width: 98vh; 
+        max-height: 98vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       ">
-        <img src="https://drive.google.com/thumbnail?id=1F7laufDiu7M8V6dD7G2txrgCpP7itfbh&sz=w2500" 
-             style="width: 100%; height: 100%; object-fit: contain; max-width: none;"
-             alt="拡大図">
+        <img src="https://drive.google.com/thumbnail?id=1F7laufDiu7M8V6dD7G2txrgCpP7itfbh&sz=w3000" 
+             style="
+               width: 100%; 
+               height: 100%; 
+               object-fit: contain;
+               max-width: none;
+               border: 2px solid #fff;
+               box-shadow: 0 0 50px rgba(255,255,255,0.3);
+             "
+             alt="拡大図：各工事の出来高曲線">
       </div>
     </div>
   `;
@@ -225,4 +256,5 @@ function openRotatedModal(event) {
   document.body.insertAdjacentHTML('beforeend', modalHtml);
 }
 </script>
+
 
